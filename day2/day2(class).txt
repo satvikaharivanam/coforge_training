@@ -1,0 +1,760 @@
+Last login: Wed Jul  1 22:49:45 on ttys000
+satvikaharivanam@Satvikas-MacBook-Air ~ % mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 9.7.1 Homebrew
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use database c;
+ERROR 1049 (42000): Unknown database 'database'
+mysql> use c;
+Database changed
+mysql> create table tbl_employee (eid int, ename varchar(50), esalary int, dno int);
+Query OK, 0 rows affected (0.029 sec)
+
+mysql> insert into tbl_emoployee values (101, 'satvika', 40000, 10);
+ERROR 1146 (42S02): Table 'c.tbl_emoployee' doesn't exist
+mysql> insert into tbl_employee values (101, 'satvika', 40000, 10);
+Query OK, 1 row affected (0.005 sec)
+
+mysql> insert into tbl_employee values (102, 'neha', 50000, 20);
+Query OK, 1 row affected (0.001 sec)
+
+mysql> insert into tbl_employee values (103, 'harshika', 60000, 10);
+Query OK, 1 row affected (0.001 sec)
+
+mysql> insert into tbl_employee values (104, 'sam', 55000, 20);
+Query OK, 1 row affected (0.002 sec)
+
+mysql> select * from tbl_employee;
++------+----------+---------+------+
+| eid  | ename    | esalary | dno  |
++------+----------+---------+------+
+|  101 | satvika  |   40000 |   10 |
+|  102 | neha     |   50000 |   20 |
+|  103 | harshika |   60000 |   10 |
+|  104 | sam      |   55000 |   20 |
++------+----------+---------+------+
+4 rows in set (0.000 sec)
+
+mysql> select count(*) from tbl_employee group by dno;
++----------+
+| count(*) |
++----------+
+|        2 |
+|        2 |
++----------+
+2 rows in set (0.004 sec)
+
+mysql> select dno,count(*) from tbl_employee group by dno;
++------+----------+
+| dno  | count(*) |
++------+----------+
+|   10 |        2 |
+|   20 |        2 |
++------+----------+
+2 rows in set (0.001 sec)
+
+mysql> select dno,count(*) as 'total number of employees' from tbl_employee group by dno;
++------+---------------------------+
+| dno  | total number of employees |
++------+---------------------------+
+|   10 |                         2 |
+|   20 |                         2 |
++------+---------------------------+
+2 rows in set (0.001 sec)
+
+mysql> select dno,sum(esalary), avg(esalary), min(esalary), max(esalary) from tbl_employee group by dno;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   10 |       100000 |   50000.0000 |        40000 |        60000 |
+|   20 |       105000 |   52500.0000 |        50000 |        55000 |
++------+--------------+--------------+--------------+--------------+
+2 rows in set (0.005 sec)
+
+mysql> mysql> select dno,sum(esalary), avg(esalary), min(esalary), max(esalary) from tbl_employee group by dno having min(esalary) > 10000;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   10 |       100000 |   50000.0000 |        40000 |        60000 |
+|   20 |       105000 |   52500.0000 |        50000 |        55000 |
++------+--------------+--------------+--------------+--------------+
+2 rows in set (0.001 sec)
+
+mysql> select dno,sum(esalary), avg(esalary), min(esalary), max(esalary) from tbl_employee group by dno having min(esalary) > 40000;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   20 |       105000 |   52500.0000 |        50000 |        55000 |
++------+--------------+--------------+--------------+--------------+
+1 row in set (0.001 sec)
+
+mysql> select dno,sum(esalary), avg(esalary), min(esalary), max(esalary) from tbl_employee group by dno order by dno;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   10 |       100000 |   50000.0000 |        40000 |        60000 |
+|   20 |       105000 |   52500.0000 |        50000 |        55000 |
++------+--------------+--------------+--------------+--------------+
+2 rows in set (0.001 sec)
+
+mysql> select dno,sum(esalary), avg(esalary), min(esalary), max(esalary) from tbl_employee group by dno order by dno desc;
++------+--------------+--------------+--------------+--------------+
+| dno  | sum(esalary) | avg(esalary) | min(esalary) | max(esalary) |
++------+--------------+--------------+--------------+--------------+
+|   20 |       105000 |   52500.0000 |        50000 |        55000 |
+|   10 |       100000 |   50000.0000 |        40000 |        60000 |
++------+--------------+--------------+--------------+--------------+
+2 rows in set (0.001 sec)
+
+mysql> select dno,sum(esalary), avg(esalary), min(esalary), max(esalary) from tbl_employee order by dno group by dno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'group by dno' at line 1
+mysql> select * from tbl_employee order by eid;
++------+----------+---------+------+
+| eid  | ename    | esalary | dno  |
++------+----------+---------+------+
+|  101 | satvika  |   40000 |   10 |
+|  102 | neha     |   50000 |   20 |
+|  103 | harshika |   60000 |   10 |
+|  104 | sam      |   55000 |   20 |
++------+----------+---------+------+
+4 rows in set (0.001 sec)
+
+mysql> select * from tbl_employee order by ename;
++------+----------+---------+------+
+| eid  | ename    | esalary | dno  |
++------+----------+---------+------+
+|  103 | harshika |   60000 |   10 |
+|  102 | neha     |   50000 |   20 |
+|  104 | sam      |   55000 |   20 |
+|  101 | satvika  |   40000 |   10 |
++------+----------+---------+------+
+4 rows in set (0.003 sec)
+
+mysql> create table tbl_dept;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table tbl_department (dno int, dname varchar(50));
+Query OK, 0 rows affected (0.010 sec)
+
+mysql> insert into tbl_department values(&dno, '&dname');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '&dno, '&dname')' at line 1
+mysql> insert into tbl_department values(&dno, &dname);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '&dno, &dname)' at line 1
+mysql> insert into tbl_department value
+    -> (10, 'development)
+    '> ,
+    '> 
+    '> exit
+    '> ');
+Query OK, 1 row affected (0.003 sec)
+
+mysql> select * from tbl_department;
++------+-----------------------+
+| dno  | dname                 |
++------+-----------------------+
+|   10 | development)
+,
+
+exit
+ |
++------+-----------------------+
+1 row in set (0.000 sec)
+
+mysql> drop table tbl_department;
+Query OK, 0 rows affected (0.008 sec)
+
+mysql> create table tbl_department (dno int, dname varchar(50));
+Query OK, 0 rows affected (0.012 sec)
+
+mysql> insert into tbl_department value
+    -> (10,'development')
+    -> (20, 'testing')
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(20, 'testing')' at line 3
+mysql> insert into tbl_department values
+    -> (10,'development'),
+    -> (20, 'testing');
+Query OK, 2 rows affected (0.003 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from tbl_department
+    -> ;
++------+-------------+
+| dno  | dname       |
++------+-------------+
+|   10 | development |
+|   20 | testing     |
++------+-------------+
+2 rows in set (0.000 sec)
+
+mysql> select dname from tbl_department where dno=10 (select dno from tbl_employee where eid=101);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(select dno from tbl_employee where eid=101)' at line 1
+mysql> select dname from tbl_department where dno= (select dno from tbl_employee where eid=101);
++-------------+
+| dname       |
++-------------+
+| development |
++-------------+
+1 row in set (0.003 sec)
+
+mysql> select * from tbl_employee where dno = (select dno from tbl_department where dname = 'testing');
++------+-------+---------+------+
+| eid  | ename | esalary | dno  |
++------+-------+---------+------+
+|  102 | neha  |   50000 |   20 |
+|  104 | sam   |   55000 |   20 |
++------+-------+---------+------+
+2 rows in set (0.001 sec)
+
+mysql> select dname from tbl_department where dno = select(dno from tbl_employee where ename='satvika');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'select(dno from tbl_employee where ename='satvika')' at line 1
+mysql> select dname from tbl_department where dno = (select dno from tbl_employee where ename='satvika');
++-------------+
+| dname       |
++-------------+
+| development |
++-------------+
+1 row in set (0.001 sec)
+
+mysql> select dname from tbl_department where dno = (select dno from tbl_employee where eid in(101,102));
+ERROR 1242 (21000): Subquery returns more than 1 row
+mysql> select dname from tbl_department where dno in (select dno from tbl_employee where eid in(101,102));
++-------------+
+| dname       |
++-------------+
+| development |
+| testing     |
++-------------+
+2 rows in set (0.001 sec)
+
+mysql> drop table tbl_employee;
+Query OK, 0 rows affected (0.012 sec)
+
+mysql> create table tbl_employee (eid int primary key, ename varchar(50) not null, esalary int check(esalary>0),email varchar(20) unique, dno int);
+Query OK, 0 rows affected (0.012 sec)
+
+mysql> insert into tbl_employee values(101, null, 4000, 'something', 10);
+ERROR 1048 (23000): Column 'ename' cannot be null
+mysql> insert into tbl_employee values(101, 'dosa' , 0, 'something',10);
+ERROR 3819 (HY000): Check constraint 'tbl_employee_chk_1' is violated.
+mysql> drop tbl_employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tbl_employee' at line 1
+mysql> drop table tbl_employee;
+Query OK, 0 rows affected (0.007 sec)
+
+mysql> drop table tbl_department;
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> create table tbl_dept (dno int primary key, dname varchar(50));
+Query OK, 0 rows affected (0.007 sec)
+
+mysql> create table tbl_employee (eid int primary key, ename varchar(50) not null, esalary int check(esalary>0),email varchar(20) unique, dno int(reference tbl_dept(dno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference tbl_dept(dno))' at line 1
+mysql> create table tbl_employee (eid int primary key, ename varchar(50) not null, esalary int check(esalary>0),email varchar(20) unique, dno int reference tbl_dept(dno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'reference tbl_dept(dno))' at line 1
+mysql> create table tbl_employee (eid int primary key, ename varchar(50) not null, esalary int check(esalary>0),email varchar(20) unique, dno int(references tbl_dept(dno));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'references tbl_dept(dno))' at line 1
+mysql> create table tbl_employee (eid int primary key, ename varchar(50) not null, esalary int check(esalary>0),email varchar(20) unique, dno int references tbl_dept(dno));
+Query OK, 0 rows affected (0.013 sec)
+
+mysql> describe tbl_employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(50) | NO   |     | NULL    |       |
+| esalary | int         | YES  |     | NULL    |       |
+| email   | varchar(20) | YES  | UNI | NULL    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+5 rows in set (0.006 sec)
+
+mysql> describe tbl_dept;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| dno   | int         | NO   | PRI | NULL    |       |
+| dname | varchar(50) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.003 sec)
+
+mysql> insert into tbl_employee values(101,'dosa', 20000, 'something', 10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`c`.`tbl_employee`, CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `tbl_dept` (`dno`))
+mysql> alter table tbl_employee drop column email;
+Query OK, 0 rows affected (0.021 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> des tbl_employee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'des tbl_employee' at line 1
+mysql> describe tbl_employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(50) | NO   |     | NULL    |       |
+| esalary | int         | YES  |     | NULL    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.002 sec)
+
+
+mysql> describe tbl_employee;
++---------+-------------+------+-----+---------+-------+
+| Field   | Type        | Null | Key | Default | Extra |
++---------+-------------+------+-----+---------+-------+
+| eid     | int         | NO   | PRI | NULL    |       |
+| ename   | varchar(50) | NO   |     | NULL    |       |
+| esalary | int         | YES  |     | NULL    |       |
+| dno     | int         | YES  | MUL | NULL    |       |
++---------+-------------+------+-----+---------+-------+
+4 rows in set (0.002 sec)
+
+mysql> create procedure insertEmployee(in eid int, in ename varchar(20), in esalary int. in dno int) 
+    -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)
+    -> values(eid,ename,esalary,dno);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '. in dno int) 
+begin
+insert into tbl_employee(eid,ename,esalary,dno)
+values(eid,' at line 1
+mysql> create procedure insertEmployee(in eid int, in ename varchar(20), in esalary int. in dno int)
+    -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)                                                                                 -> values(eid,ename,esalary,dno)
+    -> end
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '. in dno int)
+begin
+insert into tbl_employee(eid,ename,esalary,dno)
+values(eid,e' at line 1
+mysql> create procedure insertEmployee(in eid int, in ename varchar(20), in esalary int, in dno int)
+    -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)                                                                             
+    -> values(eid,ename,esalary,dno)                                                                                                   -> end ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'end' at line 5
+mysql> create procedure insertEmployee(in eid int, in ename varchar(20), in esalary int, in dno int)
+    -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)                                                                                 -> values(eid,ename,esalary,dno);                                                                                              ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 4
+mysql> DELIMITER $$
+mysql> create procedure insertEmployee(in eid int, in ename varchar(20), in esalary int, in dno int)                                   -> begin
+    -> insert into tbl_employee(eid,ename,esalary,dno)
+    -> values(eid,ename,esalary,dno);                                                                                                  -> end $$
+Query OK, 0 rows affected (0.008 sec)
+
+mysql> call insertEmployee(101,'dosa',40000,10);
+    -> DELIMITER ;
+    -> ;
+    -> ;
+    -> ^C
+
+^C
+mysql> select * from tbl_employee;
+    -> DELIMITER ;
+    -> CALL insertEmployee(101,'dosa',40000,10);
+    -> ^C
+
+^C
+mysql> DELIMITER ;
+mysql> CALL insertEmployee(101, 'dosa', 40000, 10);
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`c`.`tbl_employee`, CONSTRAINT `tbl_employee_ibfk_1` FOREIGN KEY (`dno`) REFERENCES `tbl_dept` (`dno`))
+mysql> insert into tbl_dept values(10, 'development');
+Query OK, 1 row affected (0.004 sec)
+
+mysql> CALL insertEmployee(101, 'dosa', 40000, 10);
+Query OK, 1 row affected (0.002 sec)
+
+mysql> select * from tbl_employee;
++-----+-------+---------+------+
+| eid | ename | esalary | dno  |
++-----+-------+---------+------+
+| 101 | dosa  |   40000 |   10 |
++-----+-------+---------+------+
+1 row in set (0.001 sec)
+
+mysql> DELIMITER ;;
+mysql> DELIMITER ;
+mysql> create procedure getEmployeeName(in eid int, out empname varchar(20))
+    -> begin
+    -> select ename from tbl_employee where eid = emp
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> create procedure getEmployeeName(in eid int, out empname varchar(20))
+    -> begin
+    -> select ename from ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> create procedure getEmployeeName(in empid int, out empname varchar(20))
+    -> begin
+    -> select enam from tbl_employee where eid = empid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> create procedure getEmployeeName(in empid int, out empname varchar(20))
+    -> begin
+    -> select ename int empname from tbl_employee where eid = empid;                                                               
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int empname from tbl_employee where eid = empid' at line 3
+mysql> create procedure getEmployeeName(in empid int, out empname varchar(20))
+    -> begin
+    -> select ename into empname from tbl_employee where eid = empid;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 3
+mysql> delimiter //
+mysql> create procedure getEmployeeName(int empid int, out empname varchar(20))
+    -> begin
+    -> select ename into empname from tbl_employee where eid = empid;
+    -> end //
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int empid int, out empname varchar(20))
+begin
+select ename into empname from tbl' at line 1
+mysql> create procedure getEmployeeName(in empid int, out empname varchar(20))
+    -> begin
+    -> select ename into empname from tbl_employee where eid = empid;                                                                  -> end //
+Query OK, 0 rows affected (0.007 sec)
+
+mysql> delimiter //
+mysql> delimiter ;
+mysql> call getEmployeeName(101, @empname);
+Query OK, 1 row affected (0.004 sec)
+
+mysql> select @empname;
++----------+
+| @empname |
++----------+
+| dosa     |
++----------+
+1 row in set (0.001 sec)
+
+mysql> delimiter //
+mysql> create function getEmpName(empid int) returns varchar(20) DETERMINISTIC 
+    -> begin
+    -> declare empname varchar(20);
+    -> select ename into empname from tbl_employee where eid = empid;
+    -> return empname;
+    -> end //
+Query OK, 0 rows affected (0.035 sec)
+
+mysql> delimiter ;
+mysql> select getEmpName(101);
++-----------------+
+| getEmpName(101) |
++-----------------+
+| dosa            |
++-----------------+
+1 row in set (0.006 sec)
+
+mysql> select @empname as 'name';
++------+
+| name |
++------+
+| dosa |
++------+
+1 row in set (0.002 sec)
+
+mysql> select getEmpName(101) as 'name';
++------+
+| name |
++------+
+| dosa |
++------+
+1 row in set (0.001 sec)
+
+mysql> create table table1;
+ERROR 4028 (HY000): A table must have at least one visible column.
+mysql> create table table1 (friuts varchar(50), type varchar(50));
+Query OK, 0 rows affected (0.044 sec)
+
+mysql> insert into table1 values
+    -> ('strawberry' , 'ice cream'),
+    -> ('banana', 'pancakes');
+Query OK, 2 rows affected (0.009 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> insert values table1 values
+    -> ('pineapple', 'pancakes'),
+    -> ('lemon', 'brownies');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values table1 values
+('pineapple', 'pancakes'),
+('lemon', 'brownies')' at line 1
+mysql> insert int table1 values ('pineapple', 'pancakes'), ('lemon', 'brownies');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int table1 values ('pineapple', 'pancakes'), ('lemon', 'brownies')' at line 1
+mysql> insert into table1 values ('pineapple', 'pancakes'), ('lemon', 'brownies');
+Query OK, 2 rows affected (0.001 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from table1;
++------------+-----------+
+| friuts     | type      |
++------------+-----------+
+| strawberry | ice cream |
+| banana     | pancakes  |
+| pineapple  | pancakes  |
+| lemon      | brownies  |
++------------+-----------+
+4 rows in set (0.007 sec)
+
+mysql> insert values table1 values
+    -> ('kiwi', 'ice cream'),
+    -> ('apricot','pancake'),
+    -> ('watermelon', 'brownie'),
+    -> ('mango', 'ice cream');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'values table1 values
+('kiwi', 'ice cream'),
+('apricot','pancake'),
+('watermelon'' at line 1
+mysql> insert into table1 values ('kiwi', 'ice cream'), ('apricot','pancake'), ('watermelon', 'brownie'), ('mango', 'ice cream'); 
+Query OK, 4 rows affected (0.003 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> select * from table1;
++------------+-----------+
+| friuts     | type      |
++------------+-----------+
+| strawberry | ice cream |
+| banana     | pancakes  |
+| pineapple  | pancakes  |
+| lemon      | brownies  |
+| kiwi       | ice cream |
+| apricot    | pancake   |
+| watermelon | brownie   |
+| mango      | ice cream |
++------------+-----------+
+8 rows in set (0.000 sec)
+
+mysql> create table table2 (growing varchar(50), friuts varchar(50));
+Query OK, 0 rows affected (0.009 sec)
+
+mysql> insert into table2 values
+    -> ('chennai', 'strawberry'),
+    -> ('jammu','strawberry'),
+    -> ('bhuvaneshwar' , 'banana'),
+    -> ('shillong' , 'apricot'),
+    -> ('kochi' , 'watermelons'),
+    -> ('vizag' , 'lemon'),
+    -> ('jaipur' , 'lemon'),
+    -> ('raipur', 'mango');
+Query OK, 8 rows affected (0.008 sec)
+Records: 8  Duplicates: 0  Warnings: 0
+
+mysql> select * from table2;
++--------------+-------------+
+| growing      | friuts      |
++--------------+-------------+
+| chennai      | strawberry  |
+| jammu        | strawberry  |
+| bhuvaneshwar | banana      |
+| shillong     | apricot     |
+| kochi        | watermelons |
+| vizag        | lemon       |
+| jaipur       | lemon       |
+| raipur       | mango       |
++--------------+-------------+
+8 rows in set (0.001 sec)
+
+mysql> select * from table1 t1, table2 t2 where t1.friuts = t2.friuts;
++------------+-----------+--------------+------------+
+| friuts     | type      | growing      | friuts     |
++------------+-----------+--------------+------------+
+| strawberry | ice cream | chennai      | strawberry |
+| strawberry | ice cream | jammu        | strawberry |
+| banana     | pancakes  | bhuvaneshwar | banana     |
+| apricot    | pancake   | shillong     | apricot    |
+| lemon      | brownies  | vizag        | lemon      |
+| lemon      | brownies  | jaipur       | lemon      |
+| mango      | ice cream | raipur       | mango      |
++------------+-----------+--------------+------------+
+7 rows in set (0.003 sec)
+
+mysql> select t1.type, t2.growing from table1 t1, table2 t2 where t1.friuts = t2.friuts;
++-----------+--------------+
+| type      | growing      |
++-----------+--------------+
+| ice cream | chennai      |
+| ice cream | jammu        |
+| pancakes  | bhuvaneshwar |
+| pancake   | shillong     |
+| brownies  | vizag        |
+| brownies  | jaipur       |
+| ice cream | raipur       |
++-----------+--------------+
+7 rows in set (0.002 sec)
+
+mysql> select t1.type, t2.growing from table1 t1 join table2 t2 on t1.friuts = t2.friuts;
++-----------+--------------+
+| type      | growing      |
++-----------+--------------+
+| ice cream | chennai      |
+| ice cream | jammu        |
+| pancakes  | bhuvaneshwar |
+| pancake   | shillong     |
+| brownies  | vizag        |
+| brownies  | jaipur       |
+| ice cream | raipur       |
++-----------+--------------+
+7 rows in set (0.001 sec)
+
+mysql> select t1.type, t2.growing from table1 t1 join table2 t2 on t1.friuts<> t2.friuts;
++-----------+--------------+
+| type      | growing      |
++-----------+--------------+
+| ice cream | chennai      |
+| brownie   | chennai      |
+| pancake   | chennai      |
+| ice cream | chennai      |
+| brownies  | chennai      |
+| pancakes  | chennai      |
+| pancakes  | chennai      |
+| ice cream | jammu        |
+| brownie   | jammu        |
+| pancake   | jammu        |
+| ice cream | jammu        |
+| brownies  | jammu        |
+| pancakes  | jammu        |
+| pancakes  | jammu        |
+| ice cream | bhuvaneshwar |
+| brownie   | bhuvaneshwar |
+| pancake   | bhuvaneshwar |
+| ice cream | bhuvaneshwar |
+| brownies  | bhuvaneshwar |
+| pancakes  | bhuvaneshwar |
+| ice cream | bhuvaneshwar |
+| ice cream | shillong     |
+| brownie   | shillong     |
+| ice cream | shillong     |
+| brownies  | shillong     |
+| pancakes  | shillong     |
+| pancakes  | shillong     |
+| ice cream | shillong     |
+| ice cream | kochi        |
+| brownie   | kochi        |
+| pancake   | kochi        |
+| ice cream | kochi        |
+| brownies  | kochi        |
+| pancakes  | kochi        |
+| pancakes  | kochi        |
+| ice cream | kochi        |
+| ice cream | vizag        |
+| brownie   | vizag        |
+| pancake   | vizag        |
+| ice cream | vizag        |
+| pancakes  | vizag        |
+| pancakes  | vizag        |
+| ice cream | vizag        |
+| ice cream | jaipur       |
+| brownie   | jaipur       |
+| pancake   | jaipur       |
+| ice cream | jaipur       |
+| pancakes  | jaipur       |
+| pancakes  | jaipur       |
+| ice cream | jaipur       |
+| brownie   | raipur       |
+| pancake   | raipur       |
+| ice cream | raipur       |
+| brownies  | raipur       |
+| pancakes  | raipur       |
+| pancakes  | raipur       |
+| ice cream | raipur       |
++-----------+--------------+
+57 rows in set (0.003 sec)
+
+mysql> select t1.type, t2.growing from table1 t1 left outer join table2 t2 on t1.friuts=t2.friuts;
++-----------+--------------+
+| type      | growing      |
++-----------+--------------+
+| ice cream | jammu        |
+| ice cream | chennai      |
+| pancakes  | bhuvaneshwar |
+| pancakes  | NULL         |
+| brownies  | jaipur       |
+| brownies  | vizag        |
+| ice cream | NULL         |
+| pancake   | shillong     |
+| brownie   | NULL         |
+| ice cream | raipur       |
++-----------+--------------+
+10 rows in set (0.003 sec)
+
+mysql> select t1.type, t2.growing from table1 t1 right outer join table2 t2 on t1.friuts=t2.friuts;
++-----------+--------------+
+| type      | growing      |
++-----------+--------------+
+| ice cream | chennai      |
+| ice cream | jammu        |
+| pancakes  | bhuvaneshwar |
+| pancake   | shillong     |
+| NULL      | kochi        |
+| brownies  | vizag        |
+| brownies  | jaipur       |
+| ice cream | raipur       |
++-----------+--------------+
+8 rows in set (0.001 sec)
+
+mysql> select t1.type, t2.growing from table1 t1 join table2 t2 on t1.friuts<> t2.friuts;
++-----------+--------------+
+| type      | growing      |
++-----------+--------------+
+| ice cream | chennai      |
+| brownie   | chennai      |
+| pancake   | chennai      |
+| ice cream | chennai      |
+| brownies  | chennai      |
+| pancakes  | chennai      |
+| pancakes  | chennai      |
+| ice cream | jammu        |
+| brownie   | jammu        |
+| pancake   | jammu        |
+| ice cream | jammu        |
+| brownies  | jammu        |
+| pancakes  | jammu        |
+| pancakes  | jammu        |
+| ice cream | bhuvaneshwar |
+| brownie   | bhuvaneshwar |
+| pancake   | bhuvaneshwar |
+| ice cream | bhuvaneshwar |
+| brownies  | bhuvaneshwar |
+| pancakes  | bhuvaneshwar |
+| ice cream | bhuvaneshwar |
+| ice cream | shillong     |
+| brownie   | shillong     |
+| ice cream | shillong     |
+| brownies  | shillong     |
+| pancakes  | shillong     |
+| pancakes  | shillong     |
+| ice cream | shillong     |
+| ice cream | kochi        |
+| brownie   | kochi        |
+| pancake   | kochi        |
+| ice cream | kochi        |
+| brownies  | kochi        |
+| pancakes  | kochi        |
+| pancakes  | kochi        |
+| ice cream | kochi        |
+| ice cream | vizag        |
+| brownie   | vizag        |
+| pancake   | vizag        |
+| ice cream | vizag        |
+| pancakes  | vizag        |
+| pancakes  | vizag        |
+| ice cream | vizag        |
+| ice cream | jaipur       |
+| brownie   | jaipur       |
+| pancake   | jaipur       |
+| ice cream | jaipur       |
+| pancakes  | jaipur       |
+| pancakes  | jaipur       |
+| ice cream | jaipur       |
+| brownie   | raipur       |
+| pancake   | raipur       |
+| ice cream | raipur       |
+| brownies  | raipur       |
+| pancakes  | raipur       |
+| pancakes  | raipur       |
+| ice cream | raipur       |
++-----------+--------------+
+57 rows in set (0.001 sec)
+
+mysql> select t1.type, t2.growing from table1 t1 full outer join table2 t2 on t1.friuts==t2.friuts;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'full outer join table2 t2 on t1.friuts==t2.friuts' at line 1
+mysql> select t1.type, t2.growing from table1 t1 join table2 t2 on t1.friuts<> t2.friuts;

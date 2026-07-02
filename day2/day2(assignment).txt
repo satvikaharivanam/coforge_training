@@ -1,0 +1,368 @@
+Last login: Thu Jul  2 09:24:55 on ttys000
+satvikaharivanam@Satvikas-MacBook-Air ~ % mysql -u root
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 9.7.1 Homebrew
+
+Copyright (c) 2000, 2026, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database employeeManagement;
+Query OK, 1 row affected (0.026 sec)
+
+mysql> use employeeManagement;
+Database changed
+mysql> create table dept(deptID int primary key, deptName varchar(50) , location varchar(50));
+Query OK, 0 rows affected (0.020 sec)
+
+mysql> insert into dept values
+    -> (101, 'HR' , 'hyderabad'),
+    -> (102, 'finance' , 'mumbai'),
+    -> (103, 'IT' , 'bangalore'),
+    -> (104,'sales','chennai');
+Query OK, 4 rows affected (0.006 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+mysql> 
+mysql> create table employee(empID int primary key, empName varchar(50), gender varchar(10), age int, salary decimal(10,2), designation varchar(50), deptID, hireDate date, foreign key(deptID) references dept(deptID));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ', hireDate date, foreign key(deptID) references dept(deptID))' at line 1
+mysql> create table employee(empID int primary key, empName varchar(50), gender varchar(10), age int, salary decimal(10,2), designation varchar(50), deptID int, hireDate date, foreign key(deptID) references dept(deptID));
+Query OK, 0 rows affected (0.017 sec)
+
+mysql> insert into employee values
+    -> (1,'Amit','Male',28,45000,'Software Engineer',103,'2022-05-10'),
+    -> (2,'Priya','Female',30,55000,'HR Manager',101,'2021-03-15'),
+    -> (3,'Rahul','Male',27,50000,'Accountant',102,'2023-01-20'), 
+    -> (4,'Sneha','Female',25,42000,'Sales Executive',104,'2022-09-12'),
+    -> (5,'Kiran','Male',31,60000,'Team Lead',103,'2020-11-18');
+Query OK, 5 rows affected (0.012 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> create table attendence(attendenceID int primary key, empID int, attendanceDate date, status varchar(10), foreign key (empID) references employee(empID));
+Query OK, 0 rows affected (0.014 sec)
+
+mysql> insert into attendence values
+    -> (1,1,'2026-07-01','Present'),
+    -> (2,2,'2026-07-01','Present'),
+    -> (3,3,'2026-07-01','Absent'),
+    -> (4,4,'2026-07-01','Present'),
+    -> (5,5,'2026-07-01','Present');
+Query OK, 5 rows affected (0.004 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 45000.00 | Software Engineer |    103 | 2022-05-10 |
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager        |    101 | 2021-03-15 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | Accountant        |    102 | 2023-01-20 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
+|     5 | Kiran   | Male   |   31 | 60000.00 | Team Lead         |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+5 rows in set (0.003 sec)
+
+mysql> select empName, salary from employee;
++---------+----------+
+| empName | salary   |
++---------+----------+
+| Amit    | 45000.00 |
+| Priya   | 55000.00 |
+| Rahul   | 50000.00 |
+| Sneha   | 42000.00 |
+| Kiran   | 60000.00 |
++---------+----------+
+5 rows in set (0.001 sec)
+
+mysql> select * from employee where salary > 50000;
++-------+---------+--------+------+----------+-------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------+--------+------------+
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager  |    101 | 2021-03-15 |
+|     5 | Kiran   | Male   |   31 | 60000.00 | Team Lead   |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------+--------+------------+
+2 rows in set (0.003 sec)
+
+mysql> select * from employee where age>30;
++-------+---------+--------+------+----------+-------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------+--------+------------+
+|     5 | Kiran   | Male   |   31 | 60000.00 | Team Lead   |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------+--------+------------+
+1 row in set (0.001 sec)
+
+mysql> select * from employee where dept = (select deptID from dept where deptName = 'IT');
+ERROR 1054 (42S22): Unknown column 'dept' in 'where clause'
+mysql> select * from employee where deptID = (select deptID from dept where deptName = 'IT');
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 45000.00 | Software Engineer |    103 | 2022-05-10 |
+|     5 | Kiran   | Male   |   31 | 60000.00 | Team Lead         |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+2 rows in set (0.004 sec)
+
+mysql> select * from employee where gender = 'female';
++-------+---------+--------+------+----------+-----------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation     | deptID | hireDate   |
++-------+---------+--------+------+----------+-----------------+--------+------------+
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager      |    101 | 2021-03-15 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive |    104 | 2022-09-12 |
++-------+---------+--------+------+----------+-----------------+--------+------------+
+2 rows in set (0.001 sec)
+
+mysql> select * from employee where hireDate > '2022-01-01';
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 45000.00 | Software Engineer |    103 | 2022-05-10 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | Accountant        |    102 | 2023-01-20 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+3 rows in set (0.004 sec)
+
+mysql> select * from employee order by salary desc;
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     5 | Kiran   | Male   |   31 | 60000.00 | Team Lead         |    103 | 2020-11-18 |
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager        |    101 | 2021-03-15 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | Accountant        |    102 | 2023-01-20 |
+|     1 | Amit    | Male   |   28 | 45000.00 | Software Engineer |    103 | 2022-05-10 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+5 rows in set (0.001 sec)
+
+mysql> select * from employee order by empName;
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 45000.00 | Software Engineer |    103 | 2022-05-10 |
+|     5 | Kiran   | Male   |   31 | 60000.00 | Team Lead         |    103 | 2020-11-18 |
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager        |    101 | 2021-03-15 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | Accountant        |    102 | 2023-01-20 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+5 rows in set (0.002 sec)
+
+mysql> select count(*) from employee as 'total no. of employees';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''total no. of employees'' at line 1
+mysql> select count(*) as 'total no. of employees' from employee;
++------------------------+
+| total no. of employees |
++------------------------+
+|                      5 |
++------------------------+
+1 row in set (0.003 sec)
+
+mysql> select max(salary) as 'highest salary' from employee;
++----------------+
+| highest salary |
++----------------+
+|       60000.00 |
++----------------+
+1 row in set (0.003 sec)
+
+mysql> select min(salary) as 'lowest salary' from employee;
++---------------+
+| lowest salary |
++---------------+
+|      42000.00 |
++---------------+
+1 row in set (0.001 sec)
+
+mysql> select avg(salary) as 'average salary' from employee;
++----------------+
+| average salary |
++----------------+
+|   50400.000000 |
++----------------+
+1 row in set (0.001 sec)
+
+mysql> select sum(salary) as 'total salary' from employee;
++--------------+
+| total salary |
++--------------+
+|    252000.00 |
++--------------+
+1 row in set (0.001 sec)
+
+mysql> select count(*) as 'no. of employee' from employee group by deptID;
++-----------------+
+| no. of employee |
++-----------------+
+|               1 |
+|               1 |
+|               2 |
+|               1 |
++-----------------+
+4 rows in set (0.001 sec)
+
+mysql> select deptID,count(*) as 'no. of employee' from employee group by deptID;
++--------+-----------------+
+| deptID | no. of employee |
++--------+-----------------+
+|    101 |               1 |
+|    102 |               1 |
+|    103 |               2 |
+|    104 |               1 |
++--------+-----------------+
+4 rows in set (0.001 sec)
+
+mysql> select deptID,avg(salary) as 'average salary' from employee group by deptID;
++--------+----------------+
+| deptID | average salary |
++--------+----------------+
+|    101 |   55000.000000 |
+|    102 |   50000.000000 |
+|    103 |   52500.000000 |
+|    104 |   42000.000000 |
++--------+----------------+
+4 rows in set (0.001 sec)
+
+mysql> select deptID,max(salary) as 'maximum salary' from employee group by deptID;
++--------+----------------+
+| deptID | maximum salary |
++--------+----------------+
+|    101 |       55000.00 |
+|    102 |       50000.00 |
+|    103 |       60000.00 |
+|    104 |       42000.00 |
++--------+----------------+
+4 rows in set (0.001 sec)
+
+mysql> select t1.empName, t2.deptName from employee t1 join dept t2 on t1.deptID = t2.deptID;
++---------+----------+
+| empName | deptName |
++---------+----------+
+| Priya   | HR       |
+| Rahul   | finance  |
+| Amit    | IT       |
+| Kiran   | IT       |
+| Sneha   | sales    |
++---------+----------+
+5 rows in set (0.001 sec)
+
+mysql> select t1.empName, t2.deptName, t2.locations from employee t1 join dept t2 on t1.deptID = t2.deptID;
+ERROR 1054 (42S22): Unknown column 't2.locations' in 'field list'
+mysql> select t1.empName, t2.deptName, t2.location from employee t1 join dept t2 on t1.deptID = t2.deptID;
++---------+----------+-----------+
+| empName | deptName | location  |
++---------+----------+-----------+
+| Priya   | HR       | hyderabad |
+| Rahul   | finance  | mumbai    |
+| Amit    | IT       | bangalore |
+| Kiran   | IT       | bangalore |
+| Sneha   | sales    | chennai   |
++---------+----------+-----------+
+5 rows in set (0.001 sec)
+
+mysql> select e.empID,e.empName ,a.attendanceDate, a.status from employee e join attendance a on e.empID = a.empID;
+ERROR 1146 (42S02): Table 'employeemanagement.attendance' doesn't exist
+mysql> select e.empID,e.empName ,a.attendanceDate, a.status from employee e join attendence a on e.empID = a.empID;
++-------+---------+----------------+---------+
+| empID | empName | attendanceDate | status  |
++-------+---------+----------------+---------+
+|     1 | Amit    | 2026-07-01     | Present |
+|     2 | Priya   | 2026-07-01     | Present |
+|     3 | Rahul   | 2026-07-01     | Absent  |
+|     4 | Sneha   | 2026-07-01     | Present |
+|     5 | Kiran   | 2026-07-01     | Present |
++-------+---------+----------------+---------+
+5 rows in set (0.002 sec)
+
+mysql> update employee set salary = salary*1.10 where deptID = (select deptID where deptName = 'IT');
+ERROR 1054 (42S22): Unknown column 'deptName' in 'where clause'
+mysql> update employee set salary = salary*1.10 where deptID = (select deptID from dept where deptName = 'IT');
+Query OK, 2 rows affected (0.004 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 49500.00 | Software Engineer |    103 | 2022-05-10 |
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager        |    101 | 2021-03-15 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | Accountant        |    102 | 2023-01-20 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
+|     5 | Kiran   | Male   |   31 | 66000.00 | Team Lead         |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+5 rows in set (0.001 sec)
+
+mysql> update employee set designation = 'Sr. Accountant' where empName = 'Rahul';
+Query OK, 1 row affected (0.003 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 49500.00 | Software Engineer |    103 | 2022-05-10 |
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager        |    101 | 2021-03-15 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | Sr. Accountant    |    102 | 2023-01-20 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
+|     5 | Kiran   | Male   |   31 | 66000.00 | Team Lead         |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+5 rows in set (0.001 sec)
+
+mysql> update employee set designation = 'HR Manager' where empName = 'Rahul';
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update employee set deptID = 101 where empName = 'Rahul';
+Query OK, 1 row affected (0.004 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 49500.00 | Software Engineer |    103 | 2022-05-10 |
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager        |    101 | 2021-03-15 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | HR Manager        |    101 | 2023-01-20 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
+|     5 | Kiran   | Male   |   31 | 66000.00 | Team Lead         |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+5 rows in set (0.002 sec)
+
+mysql> delete from employee where salary < 40000;
+Query OK, 0 rows affected (0.001 sec)
+
+mysql> delete from attendence when '2026-07-03';
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'when '2026-07-03'' at line 1
+mysql> delete from attendence where attendanceDate = '2026-06-23';
+Query OK, 0 rows affected (0.001 sec)
+
+mysql> create view employeeDetails as select e.empID,e.empName,d.deptName, e.salary from employee e join dept d on e.deptID = d.deptID;
+Query OK, 0 rows affected (0.008 sec)
+
+mysql> DELIMITER //
+mysql> 
+mysql> CREATE PROCEDURE GetEmployees()
+    -> BEGIN
+    ->  SELECT * FROM Employee;
+    -> END //
+Query OK, 0 rows affected (0.006 sec)
+
+mysql> 
+mysql> DELIMITER ;
+mysql> call GetEmployees();
++-------+---------+--------+------+----------+-------------------+--------+------------+
+| empID | empName | gender | age  | salary   | designation       | deptID | hireDate   |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+|     1 | Amit    | Male   |   28 | 49500.00 | Software Engineer |    103 | 2022-05-10 |
+|     2 | Priya   | Female |   30 | 55000.00 | HR Manager        |    101 | 2021-03-15 |
+|     3 | Rahul   | Male   |   27 | 50000.00 | HR Manager        |    101 | 2023-01-20 |
+|     4 | Sneha   | Female |   25 | 42000.00 | Sales Executive   |    104 | 2022-09-12 |
+|     5 | Kiran   | Male   |   31 | 66000.00 | Team Lead         |    103 | 2020-11-18 |
++-------+---------+--------+------+----------+-------------------+--------+------------+
+5 rows in set (0.002 sec)
+
+Query OK, 0 rows affected (0.002 sec)
+
+mysql> 
