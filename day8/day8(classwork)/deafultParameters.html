@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script>
+	function add(a = 10, b = 20){
+		console.log(a+b);
+	}
+	
+	add();
+	add(100);
+	add(100,200);
+	const c = 10;
+	for(let k = 1;k<c;k++){
+		console.log(k);
+		// c = c+10;
+	}
+	
+	console.log(c);
+	// console.log(k);
+	
+	function newAdd(a ,b, ...ar){
+		console.log(a+b);
+		let t = 0
+		for(let i of ar){
+			t+= i
+		}
+		
+		console.log(t)
+	}
+	
+	const odd = [1,3,5]
+	const combined = [2,4,6, ...odd]
+	
+	
+	newAdd(10,20,20,30,40)
+	console.log(combined)
+	
+	let arr = [10,20,30,40,50]
+	let [x,y,z] = arr
+	console.log(x)
+	console.log(y)
+	console.log(z)
+	
+	let[a,b,l, ...ar] = arr;
+	console.log(ar);
+	
+	let person = {
+			fisrtName : 'satvika',
+			lastName : 'harivanam'
+	}
+	
+	let {fisrtName : fname , lastName :lname } = person
+	
+	console.log(fname+" "+lname)
+	/* console.log() */
+	
+	const anotherAdd = (a,b) => a+b;
+	const welcome = (name) => "welcome " + name
+	function myFunction(){
+	console.log(anotherAdd(10,20))
+	console.log(welcome('satvika'))
+	}
+	
+	myFunction()
+	
+</script>
+</head>
+<body>
+	
+</body>
+</html>

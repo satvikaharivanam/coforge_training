@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+<style>
+	.mystyle{
+		background-color :  #E596AD;
+	} 
+	.fontStyle{
+		font-size: 30px;
+	}
+</style>
+<script>
+	function changeHeading(){
+		const myElement = document.getElementById("heading");
+		myElement.textContent = "Welcome to JavaScript DOM"
+		myElement.setAttribute("id","myHeading")
+		
+	}
+	
+	function changeStyle(){
+		document.body.classList.add("mystyle")
+	}
+	
+	function changeImage(){
+		document.getElementById("img").src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQ5LmO4Gzo5dbhx8RC4VpqgnnJPXXQlLijDvSraz6Vk4ll9FN4B46rek8I&s=10"
+		
+	}
+	
+	function createPara(){
+		const myElement = document.createElement("p");
+		myElement.textContent = "Paragraph"
+		myElement.id = "myParagraph";
+		document.getElementById("paragraph").appendChild(myElement);
+	}
+	
+	function removePara(){
+		const myElement = document.getElementById("myParagraph");
+	    if (myElement) {
+	        myElement.remove();
+	    }
+	}
+	function changeFont(){
+		const myElement = document.getElementById("font");	
+		myElement.textContent = "This is large text";
+	    myElement.classList.add("fontStyle");
+	}
+</script>
+</head>
+<body>
+	<h1 id = "heading">Heading</h1>
+	<img src = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSJfJkSvupeOVe_7j1YOniLpu4nYFsvMYXholj2ygwZpPg1hXS-f_MKLOXC&s=10" id = "img"/>
+	<p id = "paragraph"></p>
+	<p id = "font">This is the smaller Text</p>
+	<button onclick = "changeHeading()">Change Heading</button> 
+	<button onclick = "changeImage()">Change Image</button>
+	<button onclick = "changeStyle()">Change Background</button>
+	<button onclick = "createPara()">Show Paragraph</button>
+	<button onclick = "removePara()">Hide Paragraph</button>
+	<button onclick = "changeFont()">Font Change</button>
+	
+</body>
+</html>

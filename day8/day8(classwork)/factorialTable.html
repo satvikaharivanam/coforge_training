@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<script> 
+	function factorial(){
+		var n = parseInt(document.getElementById("n").value);
+		var fact = 1
+		var r = ""
+		r = "<table border = '1' width = '60%'>";
+		r+= "<tr><th>number</th><th>factorial</th></tr>";
+		
+		for(var i=1;i<=n;i++){
+			fact=fact*i;
+			r += "<tr><td>"+i+"</td><td>" + fact + "</td></tr>";
+			
+		}
+		r += "</table>";
+		document.getElementById("result").innerHTML = r;
+	}
+</script>
+</head>
+<body>
+	Enter a number for factorial:<input type = "number" id = "n">
+	<button onclick = "factorial()">Factorial</button>
+	<div id = "result">
+	
+	</div>
+	
+</body>
+</html>

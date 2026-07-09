@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Insert title here</title>
+<style>
+	.mystyle{
+		color : green;
+	}
+</style>
+<script>
+	function createDOM(){
+		const myElement = document.createElement("h1")
+		myElement.textContent = "DOM Manipulation"
+		myElement.setAttribute("id","myN1")
+		document.body.appendChild(myElement)
+	}
+	function updateDOM(){
+		const myElement = document.getElementById("myN1")
+		myElement.textContent = "another text"
+	}
+	
+	function changeStyle(){
+		const myElement = document.getElementById("myN1")
+		myElement.classList.add("mystyle")
+	}
+	
+	function removeDOM(){
+		const myElement = document.getElementById("myN1")
+		myElement.remove();
+	}
+</script>
+</head>
+<body>
+	<button onclick = "createDOM()">Create DOM</button>
+	<button onclick = "updateDOM()">Update DOM</button>
+	<button onclick = "changeStyle()">Change DOM</button>
+	<button onclick = "removeDOM()">Remove DOM</button>
+	
+</body>
+</html>
