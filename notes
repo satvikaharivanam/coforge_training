@@ -1,0 +1,87 @@
+day 4
+- overloading : methods/construtor declared with same name, but with argument list. 
+- overloading happens within a single class 
+- why do we need overloading 
+- overloading is needed becasue instead of replacing the existing funtionalites, we just can add a new funtionality with same name but different paramenters
+- overriding : the name and the parameter/arguments must be same. replacing the funtionality/ implementation of the mentod/contructor of the superclass. 
+- overriding happens between a superclass and subclass
+- overriding will happend if there is inheritance, or else it wont, i.e. only method will override. 
+- dynamic method dispatch 
+- abstraction - hiding implemtation details 
+- abstract class or interface 
+
+three layers during projects
+
+interface
+-only abstract method (only declaration)
+
+abstractiong 
+- has both abstract method and concreet method 
+- partial
+
+concreet class 
+- fully completed
+
+
+- interface/ abstract classes cannot have objects, but can have references
+- an abstract method cannot be in a final class
+- abstract and final are opposites
+
+- exceptions - runtime errors during execution, and they terminate the program the moment exception is encountered
+
+- object is superclass by default of java programs 
+- try block must come with either finally or catch or both 
+- there are two types of unchecked and checked
+- to handle exception one and only option is try - catch
+- ‘throws’ keyword doesnt handle the exception, it throws the error during runtime
+- jvm doesnt handle the exception, it just throws the exception, 
+- the actual handling is done by us
+- in development
+ frontend
+  react, angular
+ backend
+   - first is controller —  controlling the flow
+   - serivce layer —  data validation  , bussiness logic
+   - dao/repo — database query
+   - database
+- when there is an error in dao layer, it will pass the error to serive with throws, which will in turn pass it to controller, which will pass to frontend, and in frontend we use try-catch. 
+- when writing code in realtime, all the functionalies must be divied into seperate files, so that they are responsible for different things. 
+- throws is used to pass the error from one method to another or from one layer to another layer.
+- arrays are objects in java, will take memery during runtime, from heap
+ 
+- the classes and methods that are from version 1 of jdk, did not follow coding standards.
+
+
+day 5
+- collection — storing different data types in one container 
+- real time example of collection
+- ‘Integer’ is a class
+- for each data type there is a class — wrapper class
+- wrapper class — a set of classes that allow primitive data types to be treated as objects
+- in collection, we cannt store primitive data type values, so therefore it is first converted to wrapper class and then stored 
+- the toString() method is internally override, and in case of manually written class, we have to manually remove them 
+- jdbc is an api, which connects java application to the db
+
+- to work with jdbs we need to had jar driver
+
+- to work with jdbs 
+	- load the drive
+
+
+day 6
+- with help of lambda expression, one can reduce their code, and allows to implement fucntiinal interface
+- mehtod reference — something that refers a mehtod, and to achieve this we need fucntional interfcace
+- optional class is used to deal with null references
+- abstract classes are specific for their subclasses 
+- we traverse thru the array without a loop, and do some functionality to it 
+- once the stream is initialized, we can do any number of operations
+- can use the ‘map’ method to traverse using a fucntion 
+- filter - filters elements based on a condition 
+- distinct - removes duplicates
+- sorted - sorts 
+- kimit - limits the number of elements in the string 
+- count, collect, foreach are termination operations
+
+- dns— domain to ip address
+- to adjust automatically to any device is a responsive webpage 
+- a responsive webpage is created with bootstrap
