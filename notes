@@ -85,3 +85,19 @@ day 6
 - dns— domain to ip address
 - to adjust automatically to any device is a responsive webpage 
 - a responsive webpage is created with bootstrap
+
+
+day 7 
+- every html element is a dom element 
+- es6- ecma script???
+- var — global variable, accessible from anywhere 
+- let — to declare local variable , only inside that block
+- console.log — to print in console
+- const — to decalre constant variable, a final varible, does not change anywhere
+- default function paramenters — if no values are passed are within the parameters, it will take the default parameters are that are there
+- rest parameter (…) 
+- spread operator 
+- if we use … is function, then it rest parameter, but if used in declartion, then spread operator
+- destructuring 
+- asynchrinous — doenst wait for response from the server
+- kafka - tech used to achieve asynchronous application
