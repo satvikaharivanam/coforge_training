@@ -27,6 +27,22 @@
 		    req.send();
 		
 	}
+	
+	function emailCheck(){
+		var email = document.getElementById("email").value;
+		
+		var req = new XMLHttpRequest(); // object creation for ajax funtionality
+		req.open("GET","http://localhost:8022/MyWebApplication/EmailNameServlet?email="+email,true);
+	 	req.onreadystatechange = function() {
+			if(req.readyState == 4 && req.status == 200) { 
+		            document.getElementById("result1").innerHTML = req.responseText;
+		    }
+			
+
+		};
+		req.send();
+		
+	}
 </script>
 </head>
 <body>
@@ -55,7 +71,7 @@
 </td>
 </tr>
 <tr>
-<td>Email ID</td><td><input type = "email"></td>
+<td>Email ID</td><td><input type = "email" value="Enter your email" onfocus = "this.value = ''" id = "email" onblur = "emailCheck()" ><span id = "result1"></span></td>
 </tr>
 <tr>
 <td>Password</td><td><input type= "password" id = "pwd" onkeyup = "passwordStrength()"/><span id = "result"></span></td>
