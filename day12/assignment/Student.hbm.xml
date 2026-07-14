@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.coforge.model.Student" table="tbl_student">  <!-- class is used to get the  -->
+		<id name="student_id" column="student_id"> <!--  id is used here becuase eid is primary key  -->
+			<generator class="assigned"></generator> <!-- generator means that the promary key is being generator manaully -->
+		</id>
+		<property name="student_name" column="student_name"></property> <!-- record property -->
+	</class>	
+	
+</hibernate-mapping>

@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+	<class name="com.coforge.model.Employee" table="tbl_employee">  <!-- class is used to get the  -->
+		<id name="eid" column="eid"> <!--  id is used here becuase eid is primary key  -->
+			<generator class="assigned"></generator> <!-- generator means that the promary key is being generator manaully -->
+		</id>
+		<property name="ename" column="ename"></property> <!-- record property -->
+		<property name="esalary" column="esalary"></property>
+		<property name="dno" column="dno"></property>
+	</class>	
+	
+		
+</hibernate-mapping>
