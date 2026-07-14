@@ -42,7 +42,7 @@ concreet class
  backend
    - first is controller —  controlling the flow
    - serivce layer —  data validation  , bussiness logic
-   - dao/repo — database query
+   - dao/repo — database query (dao — data accept object)
    - database
 - when there is an error in dao layer, it will pass the error to serive with throws, which will in turn pass it to controller, which will pass to frontend, and in frontend we use try-catch. 
 - when writing code in realtime, all the functionalies must be divied into seperate files, so that they are responsible for different things. 
@@ -82,12 +82,12 @@ day 6
 - kimit - limits the number of elements in the string 
 - count, collect, foreach are termination operations
 
-- dns— domain to ip address
+- dns — domain to ip address
 - to adjust automatically to any device is a responsive webpage 
 - a responsive webpage is created with bootstrap
 
 
-day 7 
+day 8
 - every html element is a dom element 
 - es6- ecma script???
 - var — global variable, accessible from anywhere 
@@ -101,3 +101,162 @@ day 7
 - destructuring 
 - asynchrinous — doenst wait for response from the server
 - kafka - tech used to achieve asynchronous application
+
+
+day 9
+- html — creating a static webpage
+- css/bootstrap — to style the web pages 
+- java script — making user interactive webpages 
+- ajax — making asynchrounus call between client and server
+- servlet and jsp — both are server side components to create dynamic web applications 
+- servlet :
+    - java file
+    - can write html code inside the file to make it dynamic web page   
+    - you can create your own servlet by extending HttpServlet or GenericServelt
+    - in generic servlet, you get common fucntionilty, but httpservlet gives specific fucntionalities
+    - servlet life cycle 
+          init( )
+          service(request,response) - a generic method 
+	   service can be doGet(request,response) , doPost(request,response)
+          destroy( )
+- jsp (java server pages) 
+      - it is a html file, in which we can write java code using jsp tags to create dynamic web page
+      - if the request is coming from jsp, the first it starts the translation phase
+      - life cycle of jsp; jsp will translate into servlet and and then it follws the servlet life cycle??
+- spring and springboot are running on top of jdbc
+- hibernate is running on top of jdbc 
+- mvc — model view controller, 
+     - model;  it is a java bean, pogo class
+     - view; jsp (frontend)
+     - controller; servlet
+
+- session tracking — keeping the information about the user until the user logs out 
+- servlet context
+- there are totatl 9 inplicit object 
+- out, request, response, session  — implicit objects 
+- two ways of tracking the session — creating a session or a cookie 
+- cookie saves the info in the client side and server is on the server side
+- hence, session is secure but slow, and cookie is faster but less secure 
+- in some tomcat servers, the first cookie would be the session id 
+- servlet dispatcher —server side
+- sendRedirecter  — client side
+- dispatcher has two method — forward and include 
+- forward makes a service side redirection 
+- includes lets including files on server side 
+- <% - -        - -> is for comment lines in jsp
+- doget — data in query string, and faster, but less secure 
+- dopost — data is sent via data blinding in http protocal, slower but more secure 
+- to achiever web service we need restapi 
+-  
+- - - - - - - - - - -                            - - - - - - - - - - - 
+|   flipcart         |                           |                        |
+|                       |                           |                        |
+|   placeorder   |				|                          |
+|                       |                            |                       |
+|                       |               		  | 			    |
+|                       |                            |                       |
+- - - - - - - - - - -                            - - - - - - - - - - - 
+
+- xml is the old way of achieving web service 
+
+
+￼
+
+- it uses rest api uses http prototcal 
+- http protocals for curd operations 
+    - get — read 
+    - post — create 
+    - put — update 
+    - delete — delete 
+    - patch — partial update 
+
+
+- ways of getting details for json 
+   http://localhost:3000/students?sid=101 using a query string 
+   or http://localhost:3000/students/101 — this might not work for fake apis 
+http://localhost:3000/students/1Ib1K-BTlU0 — 1Ib1K-BTlU0 is this id, and can get by id also 
+
+- each and every json object comes with a id, and if it is a fake restapi, then the id is acutomatically generated 
+- query string only works for get mehtod.
+
+day 11 
+- to work on maven, multiple jar file is required, and each version of jar depends on the previouly exported jar file 
+- before maven, jar file was supposed to be carried, like portable 
+- and in maven, the project structure is created, and the required jar file is downloaded automatically. 
+- maven sets the environment directly 
+- maven is automatic project build tool, and provide a way to run and deploy the application 
+- in hiberate, 
+    - less manual code 
+    - no sql knowledge is required   
+    - loosely coupled with database
+   - uses object oriented query
+- in springboot, almost no manual code 
+- jdbc, 
+    - a lot of manual code
+    - sql knowledge is needed
+    - tightly coupled with database 
+      - uses primitive oriented query
+
+- jpa v hibernate
+
+- jpa is set of standard or specification 
+	- it is the interface
+- hiberanate is one of the implementation of jpa 
+- hiberanate is orm (object relational mapping) framework 
+- taking example of ems
+- orm
+	- object — the employee object — eid, ename, esalary, dno
+	- relational — the database 
+	- model — the bean class 
+- first from the hiberanate code the request will go to the orm 
+- and the orm based on the database, it will generate the correct sql query 
+- and send back the query
+- orm has two config files — hibernate.cfg.xml ( has database connection information/ establishing connection) , hiberanate.hbm.xml ( mapping between table and the model class) 
+- till jsp it is bean class, in hiberate is called model class
+- hql — hibernate query lang. — object oriented — query along wiht the bean/model/entity class 
+
+- new —> maven project —> tick create simple project 
+- the congif of a maven project 
+	- group id — is the base package 
+	- artifact id — project name 
+	-packaging - jar( java archieve)
+
+- src/main/java — core java file 
+- src/main/resources — resource files, stores hibernate.cfg.xml and hiberanate.hbm.xml
+- src/main/test — contains testing code
+- when we work on framework, we need dependences, which maven gets automatically — so you need to tell me what depeneces are needed 
+- pom.xml is where we gonna tell what dependences we need 
+- maven is downloading dependences for maven dependency repository 
+- the jar file is being downloaded in the m2 (maven local repository ) folder
+- it is downloading in m2 because, we dont need to download again, and just use this 
+- each transaction needs a  seperate session, and hence we need a session factory
+
+day 12 
+- in all annotations, entity and id are mandotory
+- if there is no table annotation, then it will create a new table with the name of entity i.e. the name of the class 
+- the one-to-one or many-to-many is mapping or hibernate association 
+- whenever we do mapping, the orm will create the required tables on its own
+class Employee{
+private int eid;
+private String ename;
+private double salary;
+private idCard = new IdCard( );  // HAS-A relationship 
+}
+class IdCard( ){
+}
+
+- when two classes can exist individually/inpendently, but to make a proper application, we need both of them 
+- there are two types of entity— weak and strong 
+- one object can have multiple depencd objects 
+- tightly coupled system
+- object injection
+	- dependent object is created outside the application, and when ever needed it will be injected 
+	- ioc — inversion of control — creating the dependent object outside the application, when the application starts — the objects will be injected whenever the object is needed 
+- ioc need to be told that these are dependent in three ways — xml based config — java code based config — annotation based config 
+- ioc container is a global memory in framework
+- types of dependency injection 
+	- constructor injection — dependences are provided thru constructor 
+	- field injection — injected directly into fields 
+	- setter injection — provided thru setter method
+- application context is the global memory for the entire application — where all the common data is stored — where the ioc stores the objects — and internally it is servlet context — ioc container
+- everything we created till now are tightly coupled systems 
