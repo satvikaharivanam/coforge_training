@@ -259,4 +259,15 @@ class IdCard( ){
 	- field injection — injected directly into fields 
 	- setter injection — provided thru setter method
 - application context is the global memory for the entire application — where all the common data is stored — where the ioc stores the objects — and internally it is servlet context — ioc container
+- we can do injection using application context file or xml file 
 - everything we created till now are tightly coupled systems 
+
+- with spring mvc we can extend the project structure 
+- Spring mvc flow 
+	- have both front end and backend
+	- whenever any action in frontend, it will refer web.xml file to access the frontcomtroller — which are dispatcher and servlet
+	- front controller (pre defined servlet) responsiblity is to ensire that any request go thru only one entrance 
+	- from controller, it will go controller, which is the actual bussiness logic — like the backend and database managing 
+	- mapping with db is done in index.jsp is the home page 
+	- 
+￼
