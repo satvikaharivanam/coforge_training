@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app
+    version="4.0"
+    xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:javaee="http://xmlns.jcp.org/xml/ns/javaee"
+    xmlns:xml="http://www.w3.org/XML/1998/namespace"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd">
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+		<servlet-name>dispatcher</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class> 
+		<!--  dispatcher servlet predefined servlet from org.spring package ,and it is the front controller -->
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>dispatcher</servlet-name> <!--  this is the servlet name here, so it will search for dispatch-servlet.xml -->
+		<url-pattern>/</url-pattern> <!-- / means any url -->
+	</servlet-mapping>
+</web-app>
+<!--  directing the index.jsp to the dispatcher servlet i.e. the front controller -->
+
+<!--  this file is needed to tell what and where is the front controller -->
