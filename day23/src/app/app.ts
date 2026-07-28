@@ -19,9 +19,9 @@ export class App {
   
   //defining constructor using "constructor" keyword
   constructor(){
-    this.name = "Harshika";
+    this.name = "satvika";
     this.age = 20;
-    this.email = "harshika@gmail.com";
+    this.email = "satvika@gmail.com";
     this.imagepath = "./smiley.png"
     this.width = 200;
     this.height = 200;
@@ -37,10 +37,10 @@ export class App {
   //event binding methods
 
   changeName(){
-    if(this.name === "Harshika")
-      this.name = "Harshika Dayal Davala";
+    if(this.name === "satvika")
+      this.name = "satvika";
     else
-      this.name = "Harshika";
+      this.name = "satvika";
   }
 
   zoomInOut(){
