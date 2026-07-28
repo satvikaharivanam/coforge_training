@@ -1,0 +1,31 @@
+<h2>Student Marksheet</h2>
+
+<!-- Summary Counters -->
+<div>
+  <p><strong>Total Students:</strong> {{ getTotalStudents() }}</p>
+  <p><strong>Pass Count:</strong> {{ getPassCount() }}</p>
+  <p><strong>Fail Count:</strong> {{ getFailCount() }}</p>
+</div>
+
+<!-- Student Results Table -->
+<table border="1" cellpadding="8" cellspacing="0">
+  <tr>
+    <th>Student ID</th>
+    <th>Name</th>
+    <th>Marks</th>
+    <th>Status</th>
+  </tr>
+
+  <tr *ngFor="let s of students">
+    <td>{{ s.id }}</td>
+    <td>{{ s.name }}</td>
+    <td>{{ s.marks }}</td>
+    <td>
+      <!-- Show Pass if marks >= 35, otherwise Fail -->
+      <span *ngIf="s.marks >= 35; else failBlock" class="pass">Pass</span>
+      <ng-template #failBlock>
+        <span class="fail">Fail</span>
+      </ng-template>
+    </td>
+  </tr>
+</table>

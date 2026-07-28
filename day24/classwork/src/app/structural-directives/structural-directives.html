@@ -1,0 +1,21 @@
+<br>
+<button [ngStyle] = "myButtonStyle" (click) = "showHideDiv()"> Show Hide Div</button>
+<br><br><br>
+<div [ngClass] = "myDivStyle" *ngIf = "flag">
+{{message}}
+<br>
+<ul>
+    <li *ngFor = "let vehicle of vehicles" (click) = "setSelectedVehicle(vehicle)">{{vehicle}}</li>
+</ul>
+<br>
+You have Selected : {{selectedVehicle}}
+<br>
+    <div [ngSwitch] = "selectedVehicle">
+        <img src = "./car.jpeg" color = "green" *ngSwitchCase = "'Car'"/>
+        <img src = "./bike.jpeg" color = "green" *ngSwitchCase = "'Bike'"/>
+        <img src = "./bus.jpeg" color = "green" *ngSwitchCase = "'Bus'"/>
+        <img src = "./truck.jpeg" color = "green" *ngSwitchCase = "'Truck'"/>
+        <font color = "red" *ngSwitchDefault>Invalid Selection</font>
+    </div>
+<br>
+</div>

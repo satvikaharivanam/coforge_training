@@ -1,0 +1,26 @@
+<h2>Product Catalog</h2>
+
+<table border="1" cellpadding="8" cellspacing="0">
+  <!--<thead> (Table Head): Wraps the header section. Inside it, you use <th> for the header cell titles.-->
+  <thead>
+    <tr>
+      <th>Row No</th>
+      <th>Product Id</th>
+      <th>Product Name</th>
+      <th>Category</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <!-- Loop through 10 products with index and even flags -->
+     <!--even is a built-in variable provided by *ngFor directive-->
+    <tr *ngFor="let p of products; let i = index; let isEven = even" 
+        [ngClass]="{ 'even-row': isEven, 'odd-row': !isEven }">
+      <td>{{ i + 1 }}</td>
+      <td>{{ p.id }}</td>
+      <td>{{ p.name }}</td>
+      <td>{{ p.category }}</td>
+      <td>₹{{ p.price }}</td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,21 @@
+<b>Employee Details
+
+<form #employeeForm="ngForm" (ngSubmit)="saveEmployee(employeeForm.value)">
+    <br><br>
+    Employee ID:
+    <input type="number" name="eid" #eid="ngModel" ngModel />
+    <br><br>
+    Employee Name:
+    <input type="text" name="ename" #ename="ngModel" ngModel />
+    <br><br>
+    Employee Salary:
+    <input type="number" name="esalary" #esalary="ngModel" ngModel />
+    <br><br>
+    Employee Dno:
+    <input type="number" name="dno" #dno="ngModel" ngModel />
+    <br><br>
+    <button type="submit">Save Employee</button>
+    <br><br>
+    Result : {{ result }}
+</form>
+</b>

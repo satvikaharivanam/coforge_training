@@ -1,0 +1,12 @@
+<button (click) = "toggleVisibility()">Toggle Visibility</button> 
+<div *ngIf = "isVisible; else noData"> 
+    <h2>Employee Details</h2>
+    <p>Employee ID : {{ employeeId }}</p>
+    <p>Name        : {{ name }}</p>
+    <p>Department  : {{ department }}</p>
+    <p>Salary      : ₹{{ salary }}</p>
+</div>
+
+<ng-template #noData>
+    <p>No Employee Found</p>
+</ng-template>
